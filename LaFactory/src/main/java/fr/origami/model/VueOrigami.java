@@ -21,7 +21,7 @@ public class VueOrigami {
 	private int id;
 	@ManyToOne
 	@JoinColumn(name="VUEORG_IDORIGAMI", nullable=false)
-	private int idOrigami;
+	private Origami origami;
 	@Column(name="VUE_DATE", nullable=false)
 	@NotEmpty
 	private Date date;
@@ -31,10 +31,10 @@ public class VueOrigami {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public VueOrigami(int id, int idOrig, Date date) {
+	public VueOrigami(int id, Origami org, Date date) {
 		super();
 		this.id = id;
-		this.idOrigami = idOrig;
+		this.origami = org;
 		this.date = date;
 	}
 	
@@ -44,12 +44,15 @@ public class VueOrigami {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getIdOrig() {
-		return idOrigami;
+	
+	public Origami getOrigami() {
+		return origami;
 	}
-	public void setIdOrig(int idOrig) {
-		this.idOrigami = idOrig;
+
+	public void setOrigami(Origami origami) {
+		this.origami = origami;
 	}
+
 	public Date getDate() {
 		return date;
 	}

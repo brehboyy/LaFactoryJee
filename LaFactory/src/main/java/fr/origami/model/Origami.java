@@ -22,7 +22,7 @@ import javax.validation.constraints.PositiveOrZero;
 
 
 @Entity
-@Table(name="Origami")
+@Table(name="origami")
 public class Origami {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -150,13 +150,5 @@ public class Origami {
 		this.level = level;
 		this.nbFeuilles = nbFeuilles;
 		
-	}
-
-	public int getNbVues() {
-		return nbVues;
-	}
-
-	public void setNbVues(int nbVues) {
-		this.nbVues = nbVues;
 	}
 }
