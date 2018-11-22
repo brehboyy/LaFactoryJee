@@ -45,9 +45,6 @@ public class Origami {
 	private float note;
 	@Column(name="ORG_ENABLE", length=1, nullable=false)
 	private boolean enable;
-	@Column(name="ORG_NBVUE", length=11, nullable=false)
-	@PositiveOrZero
-	private int nbVues;
 	@Column(name="ORG_URLVIDEO", length=500, nullable=false)
 	@NotEmpty
 	private String urlVideo;
