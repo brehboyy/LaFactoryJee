@@ -14,7 +14,7 @@
 		<jsp:include page="navigation.jsp" />
 		<div class="container">
 			<h1>Accueil</h1>
-			<p>Bonjour ${ utilisateur } !</p>
+			<p>Bonjour ${ administrateur } !</p>
 		</div>
 	</body>
 </html>

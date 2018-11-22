@@ -10,6 +10,7 @@ import fr.origami.model.Administrateur;
 public interface IDAOAdmin extends JpaRepository<Administrateur, Integer> {
 	@Query("select a from Administrateur a where a.username = :username and a.password = :password")
 	public Administrateur auth(@Param("username") String username, @Param("password") String password);
+	
 }
 
 
