@@ -151,12 +151,4 @@ public class Origami {
 		this.nbFeuilles = nbFeuilles;
 		
 	}
-
-	public int getNbVues() {
-		return nbVues;
-	}
-
-	public void setNbVues(int nbVues) {
-		this.nbVues = nbVues;
-	}
 }

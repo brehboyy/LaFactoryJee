@@ -52,7 +52,6 @@ public class OrigamiController {
 			origami.setLevel(request.getParameter("level"));
 			origami.setEnable(request.getParameter("enable") != null);
 			origami.setNbFeuilles(Integer.parseInt(request.getParameter("nbFeuilles")));
-			origami.setNbVues(0);
 			origami.setNote(0);
 			origami.setNom(request.getParameter("nom"));
 			origami.setUrlImg(request.getParameter("urlImg"));
