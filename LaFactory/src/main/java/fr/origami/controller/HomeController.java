@@ -19,7 +19,6 @@ public class HomeController {
 
 	@GetMapping({ "/", "/home" })
 	public String home(HttpSession session) {
-		
 		return "home";
 	}
 
