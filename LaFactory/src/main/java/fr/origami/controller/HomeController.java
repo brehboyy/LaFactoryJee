@@ -18,7 +18,7 @@ public class HomeController {
 	private IDAOAdmin idaoadmin;
 
 	@GetMapping({ "/", "/home" })
-	public String home(HttpSession session) {
+	public String home(HttpSession session) { 
 		return "home";
 	}
 
