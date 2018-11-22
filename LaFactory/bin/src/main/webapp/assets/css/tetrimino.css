@@ -1,0 +1,30 @@
+.forme-tetrimino tr {
+	display: block;
+	margin: 0;
+}
+
+
+.forme-tetrimino td {
+	margin: 0;
+	padding: 0;
+}
+
+
+.forme-tetrimino input[type="checkbox"] {
+	display: none;
+}
+
+.forme-tetrimino input[type="checkbox"] + label {
+	width: 25px;
+	height: 25px;
+	margin: 0;
+	
+	background: #F8F9FA;
+	border: solid 1px black;
+	
+	cursor: pointer;
+}
+
+.forme-tetrimino input[type="checkbox"]:checked + label {
+	background: #28A745;
+}
