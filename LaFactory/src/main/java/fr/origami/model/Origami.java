@@ -22,7 +22,7 @@ import javax.validation.constraints.PositiveOrZero;
 
 
 @Entity
-@Table(name="Origami")
+@Table(name="origami")
 public class Origami {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
