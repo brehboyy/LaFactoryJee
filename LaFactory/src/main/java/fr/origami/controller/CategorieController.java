@@ -69,7 +69,6 @@ public class CategorieController {
 		Categorie categorie = idaocategorie.findById(id).get();
 		List<Categorie> categories = idaocategorie.findByCatparent(categorie);
 		Hibernate.initialize(categorie.getOrigamis());
-		model.addAttribute("origamis", categorie.getOrigamis());
 		model.addAttribute("categorie", categorie);
 		model.addAttribute("categories", categories);
 		return "affichercat";

@@ -67,7 +67,7 @@ public class OrigamiController {
 				etape.setOrigami(origami);
 				etapes.add(etape);
 			}
-			model.addAttribute("tabetapes", etapes);
+			model.addAttribute("etapes", etapes);
 /*
 		} catch (Exception e) {
 			String[] numeros = request.getParameterValues("numero");
@@ -95,7 +95,7 @@ public class OrigamiController {
 
 	@GetMapping("/editer")
 	public String edit(@RequestParam int id, Model model) {
-		model.addAttribute("origami", idaoorigami.findById(id));
+		model.addAttribute("origami", idaoorigami.findById(id).get());
 		return "edit-origami";
 	}
 

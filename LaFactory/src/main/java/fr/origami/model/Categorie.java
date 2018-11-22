@@ -16,8 +16,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+import org.springframework.transaction.annotation.Transactional;
+
 @Entity
 @Table(name="categorie")
+@Transactional
 public class Categorie {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -31,8 +34,8 @@ public class Categorie {
 	@JoinColumn(name="CAT_PARENT_ID")
 	private Categorie catparent;
 	
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "categories")
-	private List<Origami> origamis;
+	@ManyToMany(mappedBy = "categories")
+	private List<Origami> origamis = new ArrayList<Origami>();
 	
 	public Categorie getCategorie_parent() {
 		return catparent;

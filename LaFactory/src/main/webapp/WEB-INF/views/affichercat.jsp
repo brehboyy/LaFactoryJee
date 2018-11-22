@@ -34,40 +34,47 @@
 				<c:forEach items="${ categories }" var="categ">
 					<tr>
 						<td>${ categ.nom }</td>
-						<td><a class="btn btn-warning" href="categorie/affichercategories?id=${ categ.id }">Afficher</a>
+						<td><a class="btn btn-warning"
+							href="categorie/affichercategories?id=${ categ.id }">Afficher</a>
 							<c:if test="${ utilisateur != null }">
-								<a class="btn btn-warning" href="categorie/editercategories?id=${ categ.id }">Modifier</a>
-								<a class="btn btn-danger" href="categorie/supprimercategories?id=${ categ.id }">Supprimer</a>
-							</c:if>
-						</td>
+								<a class="btn btn-warning"
+									href="categorie/editercategories?id=${ categ.id }">Modifier</a>
+								<a class="btn btn-danger"
+									href="categorie/supprimercategories?id=${ categ.id }">Supprimer</a>
+							</c:if></td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
-		
-		<h2>Origamis de cette categories:</h2>
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th>Nom origami</th>
-					<th>Action</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${ origamis }" var="orig">
+		<!-- 
+		<c:if test="${ origamis.size() > 0 || origamis != null }">
+			<h2>Origamis de cette categories:</h2>
+			<table class="table table-striped">
+				<thead>
 					<tr>
-						<td>${ orig.nom }</td>
-						<td>
-							<a class="btn btn-warning" href="categorie/affichercategories?id=${ categ.id }">Afficher</a>
-							<c:if test="${ utilisateur != null }">
-								<a class="btn btn-warning" href="categorie/editercategories?id=${ categ.id }">Modifier</a> 
-								<a class="btn btn-danger" href="categorie/supprimercategories?id=${ categ.id }">Supprimer</a>
-							</c:if>
-						</td>
+						<th>Nom origami</th>
+						<th>Action</th>
 					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
+				</thead>
+				<tbody>
+					<c:forEach items="${ origamis }" var="orig">
+						<tr>
+							<td>${ orig.nom }</td>
+							<td><a class="btn btn-warning"
+								href="categorie/affichercategories?id=${ categ.id }">Afficher</a>
+								<c:if test="${ utilisateur != null }">
+									<a class="btn btn-warning"
+										href="categorie/editercategories?id=${ categ.id }">Modifier</a>
+									<a class="btn btn-danger"
+										href="categorie/supprimercategories?id=${ categ.id }">Supprimer</a>
+								</c:if></td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</c:if>
+		 -->
+		
 	</div>
 </body>
 </html>

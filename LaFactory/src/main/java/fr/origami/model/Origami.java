@@ -20,9 +20,12 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.PositiveOrZero;
 
+import org.springframework.transaction.annotation.Transactional;
+
 
 @Entity
 @Table(name="origami")
+@Transactional
 public class Origami {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -54,11 +57,14 @@ public class Origami {
 	private String urlImg;
 	
 	
-	@ManyToMany(cascade = {CascadeType.ALL})
+	@ManyToMany(cascade = { 
+	        CascadeType.PERSIST, 
+	        CascadeType.MERGE
+	    })
 	@JoinTable(
 			joinColumns = {@JoinColumn(name = "ORG_ID" , nullable = false)},
 			inverseJoinColumns = {@JoinColumn(name = "CAT_ID", nullable = false)})
-	private List<Categorie> categories = new ArrayList<Categorie>(0);
+	private List<Categorie> categories = new ArrayList<Categorie>();
 	
 	
 	public int getId() {

@@ -18,8 +18,8 @@
 		
 		<div class="container">
 			<h1>
-				<c:if test="${ tabetapes != null }">Modifier</c:if>
-				<c:if test="${ tabetapes == null }">Ajouter</c:if>
+				<c:if test="${ etapes != null }">Modifier</c:if>
+				<c:if test="${ etapes == null }">Ajouter</c:if>
 				les étapes
 			</h1>
 			
@@ -29,7 +29,7 @@
 				<h1> origami : ${ origami.nom }</h1>
 			</div>
 			
-				<c:forEach items="${ tabetapes }" var="etape">
+				<c:forEach items="${ etapes }" var="etape">
 					<div class="form-group row">
 						<input readonly type="number" class="form-control" id="description" name="numero" value="${ etape.numero }" />
 					</div>
