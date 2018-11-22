@@ -19,9 +19,6 @@ public class HomeController {
 
 	@GetMapping({ "/", "/home" })
 	public String home(HttpSession session) {
-		/*
-		 * if (session.getAttribute("utilisateur") == null) { return "login"; }
-		 */
 		return "home";
 	}
 
