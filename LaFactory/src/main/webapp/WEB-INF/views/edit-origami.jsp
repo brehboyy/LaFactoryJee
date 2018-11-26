@@ -1,7 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-
 <!doctype html>
 <html>
 <head>
@@ -62,7 +61,7 @@
 			
 			<div class="form-group row">
 				<div class="form-check">
-					<input type="checkbox" class="form-check-input"  name="enable" value="${ origami.enable}" id="enable">
+					<input type="checkbox" class="form-check-input"  name="enable" value="${ origami.enable }" id="enable">
 					<label class="form-check-label">Afficher</label>
 				</div>
 			</div>

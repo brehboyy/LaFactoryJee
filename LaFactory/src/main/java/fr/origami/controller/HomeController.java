@@ -27,8 +27,12 @@ public class HomeController {
 		Administrateur admin = this.idaoadmin.auth(username, password);
 		if (admin != null) {
 			session.setAttribute("administrateur", admin.getUsername());
+			return "redirect:home";
 		}
-		return "redirect:home";
+		else
+		{
+			return "redirect:login";
+		}
 	}
 
 	@GetMapping("/login")

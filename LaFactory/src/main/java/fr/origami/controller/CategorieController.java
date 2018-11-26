@@ -32,6 +32,7 @@ public class CategorieController {
 	@GetMapping
 	public String findAll(Model model, HttpSession session) {
 		model.addAttribute("categories", idaocategorie.findByCatparent(null));
+		
 		return "categories";
 	}
 	

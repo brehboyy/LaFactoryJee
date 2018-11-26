@@ -68,6 +68,7 @@ public class OrigamiController {
 				etapes.add(etape);
 			}
 			model.addAttribute("etapes", etapes);
+			model.addAttribute("origami", origami);
 /*
 		} catch (Exception e) {
 			String[] numeros = request.getParameterValues("numero");
@@ -89,6 +90,11 @@ public class OrigamiController {
 			return "redirect:.";
 		}*/
 		return "etapes";
+	}
+	
+	@PostMapping("/etapes")
+	public String edit_etapes() {
+		return "afficherorigami";
 	}
 	
 	
