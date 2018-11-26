@@ -24,7 +24,7 @@
 			</h1>
 			
 			
-			<form method="POST" action="etapes">
+			<form method="POST">
 			<div>
 				<h1> origami : ${ origami.nom }</h1>
 			</div>

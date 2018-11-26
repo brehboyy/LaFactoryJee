@@ -46,7 +46,7 @@
 						<td>${ origami.level }</td>
 						<td>${ origami.nbFeuilles }</td>
 						<c:if test="${ utilisateur != null }">
-							<td>${ nbvuesorigami }</td>
+							<td>${ nbvueorigami.get(origami) }</td>
 						</c:if>
 
 						<c:if test="${ utilisateur != null }">

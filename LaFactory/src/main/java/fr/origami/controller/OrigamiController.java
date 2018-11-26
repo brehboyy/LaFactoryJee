@@ -3,6 +3,7 @@ package fr.origami.controller;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -41,6 +42,12 @@ public class OrigamiController {
 		List<Origami> origamis = new ArrayList<Origami>(this.idaoorigami.findAll());
 		model.addAttribute("origamis", origamis);
 		model.addAttribute("utilisateur", session);
+		HashMap<Origami, Integer> nbvueorigami = new HashMap<Origami, Integer>();
+		for (Origami or : origamis) {
+			nbvueorigami.put(or, idaovueorigami.countByOrigami(or));
+		}
+		System.out.println(nbvueorigami);
+		model.addAttribute("nbvueorigami",nbvueorigami);
 		return "origamis";
 	}
 
@@ -78,7 +85,7 @@ public class OrigamiController {
 
 	@PostMapping("/etapes")
 	public String edit_etapes() {
-		return "afficherorigami";
+		return "afficher";
 	}
 
 	@GetMapping("/editer")
@@ -103,7 +110,7 @@ public class OrigamiController {
 		vue.setOrigami(origami);
 		System.out.println(vue.toString());
 		this.idaovueorigami.save(vue);
-		model.addAttribute("nbvuesorigami", idaovueorigami.findByOrigami(origami).size());
+		//model.addAttribute("nbvuesorigami", idaovueorigami.findByOrigami(origami).size());
 			
 		return "afficher";
 	}
