@@ -31,7 +31,7 @@
 			<p>Your browser does not support iframes.</p>
 		</iframe>
 
-		<h2>Temps en minutes de réalisation : ${ origami.timeMinute }</h2>
+		<h2>Pour cet origami il faudrait environ ${ origami.timeMinute } minutes.</h2>
 		<h2>Niveau : ${ origami.level }</h2>
 		<h2>Nombre de feuilles A4 nécessaire : ${ origami.nbFeuilles }</h2>
 
