@@ -1,6 +1,6 @@
 package fr.origami.model;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.print.attribute.standard.DateTimeAtCompleted;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
@@ -23,15 +24,19 @@ public class VueOrigami {
 	@JoinColumn(name="VUEORG_IDORIGAMI", nullable=false)
 	private Origami origami;
 	@Column(name="VUE_DATE", nullable=false)
-	@NotEmpty
-	private Date date;
+	private Timestamp date;
 	
+	@Override
+	public String toString() {
+		return "VueOrigami [id=" + id + ", origami=" + origami + ", date=" + date + "]";
+	}
+
 	public VueOrigami() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	
-	public VueOrigami(int id, Origami org, Date date) {
+	public VueOrigami(int id, Origami org, Timestamp date) {
 		super();
 		this.id = id;
 		this.origami = org;
@@ -53,10 +58,10 @@ public class VueOrigami {
 		this.origami = origami;
 	}
 
-	public Date getDate() {
+	public Timestamp getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(Timestamp date) {
 		this.date = date;
 	}
 	

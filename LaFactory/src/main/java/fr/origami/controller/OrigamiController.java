@@ -1,5 +1,7 @@
 package fr.origami.controller;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +21,7 @@ import fr.origami.dao.*;
 import fr.origami.model.Commentaire;
 import fr.origami.model.Etape;
 import fr.origami.model.Origami;
+import fr.origami.model.VueOrigami;
 
 @Controller
 @RequestMapping("/origami")
@@ -29,14 +32,15 @@ public class OrigamiController {
 	private IDAOEtape idaoetape;
 	@Autowired
 	private IDAOCommentaire idaocommentaire;
+	@Autowired
+	private IDAOVueOrigami idaovueorigami;
 
 	@GetMapping
 	public String findAll(Model model, HttpSession session) {
 
 		List<Origami> origamis = new ArrayList<Origami>(this.idaoorigami.findAll());
 		model.addAttribute("origamis", origamis);
-		model.addAttribute("utilisateur", session.getAttribute("utilisateur"));
-		System.out.println(session);
+		model.addAttribute("utilisateur", session);
 		return "origamis";
 	}
 
@@ -94,22 +98,27 @@ public class OrigamiController {
 		model.addAttribute("origami", origami);
 		model.addAttribute("etapes", idaoetape.findByOrigami(origami));
 		model.addAttribute("commentaires", idaocommentaire.findByOrigami(origami));
-		for (Commentaire c : idaocommentaire.findByOrigami(origami)) {
-			System.out.println(c.toString());
-		}
+		VueOrigami vue = new VueOrigami();
+		vue.setDate(new Timestamp(System.currentTimeMillis()));
+		vue.setOrigami(origami);
+		System.out.println(vue.toString());
+		this.idaovueorigami.save(vue);
+		model.addAttribute("nbvuesorigami", idaovueorigami.findByOrigami(origami).size());
+			
 		return "afficher";
 	}
 
 	@PostMapping("/afficher")
 	public String commenter(@ModelAttribute Commentaire commentaire, Model model, HttpServletRequest request) {
 		Origami origami = this.idaoorigami.findById(Integer.parseInt(request.getParameter("id"))).get();
+
 		commentaire.setOrigami(origami);
 		this.idaocommentaire.save(commentaire);
 		model.addAttribute("origami", origami);
 		model.addAttribute("etapes", idaoetape.findByOrigami(origami));
 		model.addAttribute("commentaires", idaocommentaire.findByOrigami(origami));
 		
-		System.out.println(commentaire.toString());
+		
 		return "afficher";
 	}
 
