@@ -17,6 +17,10 @@ import javax.validation.constraints.Size;
 @Table(name="commentaire")
 public class Commentaire {
 	
+	@Override
+	public String toString() {
+		return "Commentaire [Id=" + Id + ", pseudo=" + pseudo + ", message=" + message + ", origami=" + origami + "]";
+	}
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="COM_ID")

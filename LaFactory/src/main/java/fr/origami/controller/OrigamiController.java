@@ -29,14 +29,14 @@ public class OrigamiController {
 	private IDAOEtape idaoetape;
 	@Autowired
 	private IDAOCommentaire idaocommentaire;
-	
 
 	@GetMapping
 	public String findAll(Model model, HttpSession session) {
-		
+
 		List<Origami> origamis = new ArrayList<Origami>(this.idaoorigami.findAll());
 		model.addAttribute("origamis", origamis);
 		model.addAttribute("utilisateur", session.getAttribute("utilisateur"));
+		System.out.println(session);
 		return "origamis";
 	}
 
@@ -49,55 +49,33 @@ public class OrigamiController {
 	public String add(@ModelAttribute Origami origami, Model model, HttpServletRequest request) {
 
 		List<Etape> etapes = new ArrayList<Etape>();
-			origami.setLevel(request.getParameter("level"));
-			origami.setEnable(request.getParameter("enable") != null);
-			origami.setNbFeuilles(Integer.parseInt(request.getParameter("nbFeuilles")));
-			origami.setNote(0);
-			origami.setNom(request.getParameter("nom"));
-			origami.setUrlImg(request.getParameter("urlImg"));
-			origami.setUrlVideo(request.getParameter("urlVideo"));
-			origami.setTimeMinute(Integer.parseInt(request.getParameter("timeMinute")));
-			
-			int nbEtapes = Integer.parseInt(request.getParameter("nbEtapes"));
-			this.idaoorigami.save(origami);
+		origami.setLevel(request.getParameter("level"));
+		origami.setEnable(request.getParameter("enable") != null);
+		origami.setNbFeuilles(Integer.parseInt(request.getParameter("nbFeuilles")));
+		origami.setNote(0);
+		origami.setNom(request.getParameter("nom"));
+		origami.setUrlImg(request.getParameter("urlImg"));
+		origami.setUrlVideo(request.getParameter("urlVideo"));
+		origami.setTimeMinute(Integer.parseInt(request.getParameter("timeMinute")));
 
-			for (int i = 0; i < nbEtapes; i++) {
-				Etape etape = new Etape();
-				etape.setNumero(i + 1);
-				etape.setOrigami(origami);
-				etapes.add(etape);
-			}
-			model.addAttribute("etapes", etapes);
-			model.addAttribute("origami", origami);
-/*
-		} catch (Exception e) {
-			String[] numeros = request.getParameterValues("numero");
-			String[] descriptions = request.getParameterValues("description");
-			String[] urlimages = request.getParameterValues("urlimages");
-			String[] idOrigamis = request.getParameterValues("idOrigami");
+		int nbEtapes = Integer.parseInt(request.getParameter("nbEtapes"));
+		this.idaoorigami.save(origami);
 
-			for (int i = 0; i < numeros.length; i++) {
-
-				Origami origamiadd = this.idaoorigami.findById(Integer.parseInt(idOrigamis[i])).get();
-				if (origamiadd != null) {
-					idaoetape.save(new Etape(Integer.parseInt(numeros[i]), descriptions[i], urlimages[i], origamiadd));
-				}
-
-			}
-			for (Etape etape : etapes) {
-				etapes.add(etape);
-			}
-			return "redirect:.";
-		}*/
+		for (int i = 0; i < nbEtapes; i++) {
+			Etape etape = new Etape();
+			etape.setNumero(i + 1);
+			etape.setOrigami(origami);
+			etapes.add(etape);
+		}
+		model.addAttribute("etapes", etapes);
+		model.addAttribute("origami", origami);
 		return "etapes";
 	}
-	
+
 	@PostMapping("/etapes")
 	public String edit_etapes() {
 		return "afficherorigami";
 	}
-	
-	
 
 	@GetMapping("/editer")
 	public String edit(@RequestParam int id, Model model) {
@@ -114,12 +92,27 @@ public class OrigamiController {
 	public String display(@RequestParam int id, Model model) {
 		Origami origami = this.idaoorigami.findById(id).get();
 		model.addAttribute("origami", origami);
-		model.addAttribute("categories", origami.getCategories());
-		model.addAttribute("etapes" ,idaoetape.findByOrigami(origami) );
+		model.addAttribute("etapes", idaoetape.findByOrigami(origami));
 		model.addAttribute("commentaires", idaocommentaire.findByOrigami(origami));
+		for (Commentaire c : idaocommentaire.findByOrigami(origami)) {
+			System.out.println(c.toString());
+		}
 		return "afficher";
 	}
-	
+
+	@PostMapping("/afficher")
+	public String commenter(@ModelAttribute Commentaire commentaire, Model model, HttpServletRequest request) {
+		Origami origami = this.idaoorigami.findById(Integer.parseInt(request.getParameter("id"))).get();
+		commentaire.setOrigami(origami);
+		this.idaocommentaire.save(commentaire);
+		model.addAttribute("origami", origami);
+		model.addAttribute("etapes", idaoetape.findByOrigami(origami));
+		model.addAttribute("commentaires", idaocommentaire.findByOrigami(origami));
+		
+		System.out.println(commentaire.toString());
+		return "afficher";
+	}
+
 	@GetMapping("/supprimer")
 	public String delete(@RequestParam int id) {
 		idaoorigami.deleteById(id);
