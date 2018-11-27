@@ -31,7 +31,7 @@
 					<th>Nom</th>
 					<th>Level</th>
 					<th>Nombre de feuilles</th>
-					<c:if test="${ utilisateur != null }">
+					<c:if test="${ administrateur != null }">
 						<th>Nombre de vues</th>
 					</c:if>
 					<th>Actions</th>
@@ -45,18 +45,18 @@
 						<td>${ origami.nom }</td>
 						<td>${ origami.level }</td>
 						<td>${ origami.nbFeuilles }</td>
-						<c:if test="${ utilisateur != null }">
+						<c:if test="${ administrateur != null }">
 							<td>${ nbvueorigami.get(origami) }</td>
 						</c:if>
 
-						<c:if test="${ utilisateur != null }">
+						<c:if test="${ administrateur != null }">
 							<td><a class="btn btn-warning"
 								href="origami/afficher?id=${ origami.id }">Afficher</a> <a
 								class="btn btn-warning" href="origami/editer?id=${ origami.id }">Modifier</a>
 								<a class="btn btn-danger"
 								href="origami/supprimer?id=${ origami.id }">Supprimer</a></td>
 						</c:if>
-						<c:if test="${ utilisateur == null }">
+						<c:if test="${ administrateur == null }">
 							<td><a class="btn btn-warning"
 								href="origami/afficher?id=${ origami.id }">Afficher</a></td>
 						</c:if>

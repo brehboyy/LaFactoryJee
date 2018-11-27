@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import fr.origami.dao.*;
+import fr.origami.model.Administrateur;
 import fr.origami.model.Commentaire;
 import fr.origami.model.Etape;
 import fr.origami.model.Origami;
@@ -35,18 +36,18 @@ public class OrigamiController {
 	private IDAOCommentaire idaocommentaire;
 	@Autowired
 	private IDAOVueOrigami idaovueorigami;
+	@Autowired
+	private IDAOAdmin idaoadmin;
 
 	@GetMapping
 	public String findAll(Model model, HttpSession session) {
-
 		List<Origami> origamis = new ArrayList<Origami>(this.idaoorigami.findAll());
 		model.addAttribute("origamis", origamis);
-		model.addAttribute("utilisateur", session);
+		model.addAttribute("administrateur", session.getAttribute("administrateur"));
 		HashMap<Origami, Integer> nbvueorigami = new HashMap<Origami, Integer>();
 		for (Origami or : origamis) {
 			nbvueorigami.put(or, idaovueorigami.countByOrigami(or));
 		}
-		System.out.println(nbvueorigami);
 		model.addAttribute("nbvueorigami",nbvueorigami);
 		return "origamis";
 	}
@@ -91,6 +92,7 @@ public class OrigamiController {
 	@GetMapping("/editer")
 	public String edit(@RequestParam int id, Model model) {
 		model.addAttribute("origami", idaoorigami.findById(id).get());
+		model.addAttribute("nbetapes", idaoetape.findByOrigami(idaoorigami.findById(id).get()));
 		return "edit-origami";
 	}
 
@@ -108,9 +110,8 @@ public class OrigamiController {
 		VueOrigami vue = new VueOrigami();
 		vue.setDate(new Timestamp(System.currentTimeMillis()));
 		vue.setOrigami(origami);
-		System.out.println(vue.toString());
+
 		this.idaovueorigami.save(vue);
-		//model.addAttribute("nbvuesorigami", idaovueorigami.findByOrigami(origami).size());
 			
 		return "afficher";
 	}
