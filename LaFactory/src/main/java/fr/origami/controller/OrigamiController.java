@@ -92,7 +92,7 @@ public class OrigamiController {
 	@GetMapping("/editer")
 	public String edit(@RequestParam int id, Model model) {
 		model.addAttribute("origami", idaoorigami.findById(id).get());
-		model.addAttribute("nbetapes", idaoetape.findByOrigami(idaoorigami.findById(id).get()));
+		model.addAttribute("nbetapes", idaoetape.findByOrigami(idaoorigami.findById(id).get()).size());
 		return "edit-origami";
 	}
 
