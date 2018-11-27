@@ -11,5 +11,6 @@ import fr.origami.model.Origami;
 
 public interface IDAOEtape extends JpaRepository<Etape, Integer>{
 	public List<Etape> findByOrigami(Origami origami);
+	public List<Etape> findTop1ByOrigamiByOrderByNumeroDesc(Origami origami);
 
 }

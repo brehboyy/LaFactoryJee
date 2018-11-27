@@ -59,7 +59,7 @@ public class OrigamiController {
 	@PostMapping("/ajouter")
 	public String add(@ModelAttribute Origami origami, Model model, HttpServletRequest request) {
 
-		List<Etape> etapes = new ArrayList<Etape>();
+		
 		origami.setLevel(request.getParameter("level"));
 		origami.setEnable(request.getParameter("enable") != null);
 		origami.setNbFeuilles(Integer.parseInt(request.getParameter("nbFeuilles")));
@@ -68,9 +68,15 @@ public class OrigamiController {
 		origami.setUrlImg(request.getParameter("urlImg"));
 		origami.setUrlVideo(request.getParameter("urlVideo"));
 		origami.setTimeMinute(Integer.parseInt(request.getParameter("timeMinute")));
-
-		int nbEtapes = Integer.parseInt(request.getParameter("nbEtapes"));
 		this.idaoorigami.save(origami);
+		return "etapes";
+	}
+	
+	@GetMapping("/etapes")
+	public String add_etapes(@ModelAttribute Origami origami,Model model, HttpServletRequest request) {
+		List<Etape> etapes = new ArrayList<Etape>();
+		int nbEtapes = Integer.parseInt(request.getParameter("nbEtapes"));
+		
 
 		for (int i = 0; i < nbEtapes; i++) {
 			Etape etape = new Etape();
@@ -93,10 +99,30 @@ public class OrigamiController {
 		model.addAttribute("origami", idaoorigami.findById(id).get());
 		return "edit-origami";
 	}
+	
+	@GetMapping("/ajouteretapes")
+	public String ajouteretapes(@ModelAttribute List<Etape> etapes) {
+		Etape etape = new Etape();
+		etape.setNumero(i + 1);
+		etape.setOrigami(origami);
+		etapes.add(etape);
+		return null;
+		
+	}
 
 	@PostMapping("/editer")
 	public String edit(@ModelAttribute Origami origami, Model model, HttpServletRequest request) {
-		return this.add(origami, model, request);
+		List<Etape> etapes = new ArrayList<Etape>();
+		int nbEtapes = Integer.parseInt(request.getParameter("nbEtapes"));
+		for (int i = 0; i < nbEtapes; i++) {
+			Etape etape = new Etape();
+			etape.setNumero(i + 1);
+			etape.setOrigami(origami);
+			etapes.add(etape);
+		}
+		model.addAttribute("etapes", etapes);
+		model.addAttribute("origami", origami);
+		return "etapes";
 	}
 
 	@GetMapping("/afficher")
