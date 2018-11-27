@@ -99,7 +99,7 @@ public class OrigamiController {
 		model.addAttribute("origami", idaoorigami.findById(id).get());
 		return "edit-origami";
 	}
-	
+	/*
 	@GetMapping("/ajouteretapes")
 	public String ajouteretapes(@ModelAttribute List<Etape> etapes) {
 		Etape etape = new Etape();
@@ -108,7 +108,7 @@ public class OrigamiController {
 		etapes.add(etape);
 		return null;
 		
-	}
+	}*/
 
 	@PostMapping("/editer")
 	public String edit(@ModelAttribute Origami origami, Model model, HttpServletRequest request) {
