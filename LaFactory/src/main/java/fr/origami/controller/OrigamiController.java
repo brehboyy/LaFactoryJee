@@ -38,6 +38,8 @@ public class OrigamiController {
 	private IDAOVueOrigami idaovueorigami;
 	@Autowired
 	private IDAOAdmin idaoadmin;
+	
+	private static List<Etape> etapes = new ArrayList<Etape>();
 
 	@GetMapping
 	public String findAll(Model model, HttpSession session) {
@@ -53,24 +55,61 @@ public class OrigamiController {
 	}
 
 	@GetMapping("/ajouter")
-	public String add() {
+	public String add(Model model) {
+ 		model.addAttribute("etapes",etapes);
 		return "edit-origami";
 	}
 
 	@PostMapping("/ajouter")
 	public String add(@ModelAttribute Origami origami, Model model, HttpServletRequest request) {
-
+		try {
+		String action = request.getParameter("action");
+		if ("ajouter".equals(action)) {
+		    // Invoke FirstServlet's job here.
+			int nbEtapes = Integer.parseInt(request.getParameter("nbEtapes"));
+			for (Etape e : etapes) {
+				e.setDescription(request.getParameter("description" + e.getNumero()));
+				e.setImagesUrl(request.getParameter("urlImg" + e.getNumero()));
+				e.setOrigami(origami);
+			}
+			for (int i = 0; i < nbEtapes; i++) {
+				Etape e = new Etape();
+				e.setNumero(etapes.size() + 1);
+				etapes.add(e);
+			}
+			model.addAttribute("etapes",etapes);
+			return "edit-origami";
+		} else {
+		    // Invoke SecondServlet's job here.
+			origami.setLevel(request.getParameter("level"));
+			origami.setEnable(request.getParameter("enable") != null);
+			origami.setNbFeuilles(Integer.parseInt(request.getParameter("nbFeuilles")));
+			origami.setNote(0);
+			origami.setNom(request.getParameter("nom"));
+			origami.setUrlImg(request.getParameter("urlImg"));
+			origami.setUrlVideo(request.getParameter("urlVideo"));
+			origami.setTimeMinute(Integer.parseInt(request.getParameter("timeMinute")));
+			this.idaoorigami.save(origami);
+			for (Etape e : etapes) {
+				e.setDescription(request.getParameter("description" + e.getNumero()));
+				e.setImagesUrl(request.getParameter("urlImg" + e.getNumero()));
+				e.setOrigami(origami);
+				this.idaoetape.save(e);
+			}
+			model.addAttribute("origami", origami);
+			model.addAttribute("etapes", idaoetape.findByOrigami(origami));
+			model.addAttribute("commentaires", idaocommentaire.findByOrigami(origami));
+			etapes.clear();
+			
+			return "afficher";
+		}
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			model.addAttribute("etapes",etapes);
+			return "edit-origami";
+		}
 		
-		origami.setLevel(request.getParameter("level"));
-		origami.setEnable(request.getParameter("enable") != null);
-		origami.setNbFeuilles(Integer.parseInt(request.getParameter("nbFeuilles")));
-		origami.setNote(0);
-		origami.setNom(request.getParameter("nom"));
-		origami.setUrlImg(request.getParameter("urlImg"));
-		origami.setUrlVideo(request.getParameter("urlVideo"));
-		origami.setTimeMinute(Integer.parseInt(request.getParameter("timeMinute")));
-		this.idaoorigami.save(origami);
-		return "etapes";
+		
 	}
 	
 	@GetMapping("/etapes")
@@ -98,7 +137,7 @@ public class OrigamiController {
 	@GetMapping("/editer")
 	public String edit(@RequestParam int id, Model model) {
 		model.addAttribute("origami", idaoorigami.findById(id).get());
-		model.addAttribute("nbetapes", idaoetape.findByOrigami(idaoorigami.findById(id).get()).size());
+		model.addAttribute("etapes", idaoetape.findByOrigami(idaoorigami.findById(id).get()));
 		return "edit-origami";
 	}
 	
@@ -115,17 +154,7 @@ public class OrigamiController {
 
 	@PostMapping("/editer")
 	public String edit(@ModelAttribute Origami origami, Model model, HttpServletRequest request) {
-		List<Etape> etapes = new ArrayList<Etape>();
-		int nbEtapes = Integer.parseInt(request.getParameter("nbEtapes"));
-		for (int i = 0; i < nbEtapes; i++) {
-			Etape etape = new Etape();
-			etape.setNumero(i + 1);
-			etape.setOrigami(origami);
-			etapes.add(etape);
-		}
-		model.addAttribute("etapes", etapes);
-		model.addAttribute("origami", origami);
-		return "etapes";
+		return this.add(origami, model, request);
 	}
 
 	@GetMapping("/afficher")
