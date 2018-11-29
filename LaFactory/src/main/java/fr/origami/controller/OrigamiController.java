@@ -79,6 +79,13 @@ public class OrigamiController {
 			}
 			model.addAttribute("etapes",etapes);
 			return "edit-origami";
+		}else if (action.contains("supprimer")) {
+			int numEtape = Integer.parseInt(action.split("supprimer")[1]);
+			etapes.removeIf(e -> e.getNumero() == numEtape);
+			for(int i = numEtape; i < etapes.size(); i++) {
+				etapes.get(numEtape - 1).setNumero(etapes.get(numEtape- 1).getNumero() - 1);
+			}			
+			return "edit-etapes";
 		} else {
 		    // Invoke SecondServlet's job here.
 			origami.setLevel(request.getParameter("level"));

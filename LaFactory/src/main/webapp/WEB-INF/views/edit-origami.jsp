@@ -25,12 +25,12 @@
 			un origami
 		</h1>
 
-		<form method="POST">
+		<form method="POST" data-toggle="validator" role="form">
 			<div class="form-group row">
 				<label for="nom" class="col-sm-2 col-form-label">Nom</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" id="nom" name="nom"
-						placeholder="Nom" value="${ origami.nom }" />
+						placeholder="Nom" value="${ origami.nom }" required />
 				</div>
 			</div>
 
@@ -39,7 +39,7 @@
 					minute de réalisation</label>
 				<div class="col-sm-10">
 					<input type="number" class="form-control" id="timeMinute"
-						name="timeMinute" placeholder="5" value="${ origami.timeMinute }" />
+						name="timeMinute" placeholder="5" value="${ origami.timeMinute }" required/>
 				</div>
 			</div>
 			<div class="col-sm-4">
@@ -120,14 +120,14 @@
 					de feuilles A4 nécessaire</label>
 				<div class="col-sm-10">
 					<input type="number" class="form-control" id="nbFeuilles"
-						name="nbFeuilles" placeholder="3" value="${ origami.nbFeuilles }" />
+						name="nbFeuilles" placeholder="3" value="${ origami.nbFeuilles }" required />
 				</div>
 			</div>
 
 			<div class="form-group row">
 				<div class="form-check">
 					<input type="checkbox" class="form-check-input" name="enable"
-						value="${ origami.enable }" id="enable"> <label
+						${ origami.enable != null ? 'checked' : '' } id="enable"> <label
 						class="form-check-label">Afficher</label>
 				</div>
 			</div>
@@ -137,7 +137,7 @@
 				<div class="col-sm-10">
 					<input type="text" class="form-control" id="urlVideo"
 						name="urlVideo" placeholder="Url video"
-						value="${ origami.urlVideo}" />
+						value="${ origami.urlVideo}" required/>
 				</div>
 			</div>
 
@@ -145,14 +145,14 @@
 				<label for="nom" class="col-sm-2 col-form-label">URL image</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" id="urlImg" name="urlImg"
-						placeholder="Url image" value="${ origami.urlImg}" />
+						placeholder="Url image" value="${ origami.urlImg}" required />
 				</div>
 			</div>
 			<label for="nom" class="col-sm-2 col-form-label">Etapes</label>
 			<c:forEach items="${ etapes }" var="etape">
 				<div class="form-group row">
-					<input readonly type="number" class="form-control" id="description"
-						name="numero${ etape.numero }" value="${ etape.numero }" />
+					<input readonly type="number" class="form-control" id="description" value="${ etape.numero }" />
+					<button type="submit" name="action" value="supprimer${ etape.numero }" class="btn btn-danger">Supprimer</button>
 				</div>
 
 				<div class="form-group row">
@@ -161,7 +161,7 @@
 						<input type="text" class="form-control" id="description"
 							name="description${ etape.numero }"
 							placeholder="Plier une feuille en 2..."
-							value="${ etape.description }" />
+							value="${ etape.description }" required/>
 					</div>
 				</div>
 				<div class="form-group row">
@@ -170,8 +170,9 @@
 					<div class="col-sm-10">
 						<input type="text" class="form-control" id="urlImg"
 							name="urlImg${ etape.numero }"
-							placeholder="Plier une feuille en 2..." value="${ etape.urlImg }" />
+							placeholder="Plier une feuille en 2..." value="${ etape.urlImg }" required/>
 					</div>
+					
 				</div>
 				<!--  
 					<div class="form-group row">
@@ -188,9 +189,9 @@
 				<div class="col-sm-10">
 					<input type="number" class="form-control" id="nbEtapes"
 						name="nbEtapes" placeholder="3" value="" />
-				</div>
-				<button type="submit" name="action" value="ajouter"
+						<button type="submit" name="action" value="ajouter"
 					class="btn btn-primary">Ajouter</button>
+				</div>
 			</div>
 
 			<div class="form-group row">

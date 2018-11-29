@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -34,8 +36,13 @@ public class Categorie {
 	@JoinColumn(name="CAT_PARENT_ID")
 	private Categorie catparent;
 	
-	@ManyToMany(mappedBy = "categories")
-	private List<Origami> origamis = new ArrayList<Origami>();
+	@ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                CascadeType.PERSIST,
+                CascadeType.MERGE
+            },
+            mappedBy = "categories")
+	private Set<Origami> origamis = new HashSet<Origami>();
 	
 	public Categorie getCategorie_parent() {
 		return catparent;
@@ -58,15 +65,6 @@ public class Categorie {
 		this.nom = nom;
 	}
 	
-	public List<Origami> getOrigamis() {
-		return origamis;
-	}
-	public void addOrigami(Origami o) {
-		this.origamis.add(o);
-	}
-	
-	
-	
 	public Categorie getCatparent() {
 		return catparent;
 	}
@@ -74,7 +72,10 @@ public class Categorie {
 		this.catparent = catparent;
 	}
 	
-	public void getOrigamis(List<Origami> origamis) {
+	public Set<Origami> getOrigamis() {
+		return origamis;
+	}
+	public void setOrigamis(Set<Origami> origamis) {
 		this.origamis = origamis;
 	}
 	public Categorie() {
@@ -85,6 +86,6 @@ public class Categorie {
 		super();
 		this.nom = nom;
 		this.catparent = categorie_parent;
-		this.origamis = new ArrayList<Origami>();
+		this.origamis = new HashSet<Origami>();
 	}
 }

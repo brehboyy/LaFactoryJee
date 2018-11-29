@@ -64,7 +64,7 @@ public class Origami {
 	@JoinTable(
 			joinColumns = {@JoinColumn(name = "ORG_ID" , nullable = false)},
 			inverseJoinColumns = {@JoinColumn(name = "CAT_ID", nullable = false)})
-	private List<Categorie> categories = new ArrayList<Categorie>();
+	private Set<Categorie> categories = new HashSet<Categorie>();
 	
 	
 	public int getId() {
@@ -141,11 +141,11 @@ public class Origami {
 		this.urlImg = urlImg;
 	}
 
-	public List<Categorie> getCategories() {
+	public Set<Categorie> getCategories() {
 		return categories;
 	}
 
-	public void setCategories(List<Categorie> categories) {
+	public void setCategories(Set<Categorie> categories) {
 		this.categories = categories;
 	}
 
