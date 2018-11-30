@@ -38,6 +38,8 @@ public class OrigamiController {
 	private IDAOVueOrigami idaovueorigami;
 	@Autowired
 	private IDAOAdmin idaoadmin;
+	@Autowired
+	private IDAOAdmin idaocategorie;
 	
 	private static List<Etape> etapes = new ArrayList<Etape>();
 
@@ -56,6 +58,7 @@ public class OrigamiController {
 
 	@GetMapping("/ajouter")
 	public String add(Model model) {
+		model.addAttribute("categories", idaocategorie.findAll());
  		model.addAttribute("etapes",etapes);
 		return "edit-origami";
 	}

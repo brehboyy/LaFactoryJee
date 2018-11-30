@@ -148,6 +148,15 @@
 						placeholder="Url image" value="${ origami.urlImg}" required />
 				</div>
 			</div>
+			<div class="form-group row">
+				<label for="nom" class="col-sm-2 col-form-label">Categories</label>
+				<c:forEach items="${ categories }" var="categorie">
+					<div class="checkbox">
+					  <label><input type="checkbox" name="${ categorie.nom}${ categorie.id}"  value="">${categorie.nom}</label>
+					</div>
+				</c:forEach>
+			</div>
+			
 			<label for="nom" class="col-sm-2 col-form-label">Etapes</label>
 			<c:forEach items="${ etapes }" var="etape">
 				<div class="form-group row">

@@ -29,8 +29,11 @@
 			<c:if test="${ administrateur != null }">
 
 				<li class="nav-item"><a class="nav-link" href="logout">Se
-						déconnecter</a></li> 
+						déconnecter</a></li>
 			</c:if>
+			<li
+				class="nav-item"><a
+				class="nav-link" href="idee">Boîte à idées</a></li>
 		</ul>
 	</div>
 </nav>

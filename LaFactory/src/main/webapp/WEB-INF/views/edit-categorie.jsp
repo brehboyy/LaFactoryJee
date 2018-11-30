@@ -37,6 +37,8 @@
     					<option ${categorie.catparent.id == cat.id ? 'selected' : ''} value="${ cat.id }">${ cat.nom }</option>
 					</c:forEach>
   				</select>
+  				
+  				
 								
 				<div class="form-group row">
 					<div class="col-sm-10">
